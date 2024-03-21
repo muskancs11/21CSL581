@@ -35,6 +35,15 @@
             <p>Login successful! Welcome, {{ user.username }}!</p>
         </div>
     </div>
-    <script src="Program8.js"> </script>
+    <script>
+            var app=angular.module("myApp",[]);
+            app.controller("loginController",function($scope){
+                $scope.user={username:"",password:""};
+                $scope.isloggedIn=false;
+                $scope.login=function(){
+                    $scope.isloggedIn=true;  
+                };
+            });
+        </script>
 </body>
 </html> 
