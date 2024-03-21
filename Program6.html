@@ -66,3 +66,58 @@ $scope.tasks.splice(index, 1);
 </script>
 </body>
 </html>
+
+OR
+
+<!DOCTYPE html>
+<html ng-app="todoApp">
+    <head>
+        <title>To-Do List</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    </head>
+    <body>
+        <div ng-controller="todoCtrl" id="todoList">
+            <form ng-submit="addTask()">
+                <label for="newTask">New Task:</label>
+                <input type="text" id="newTask" ng-model="newTask" required>
+                <button type="submit">Add</button>
+            </form>
+            <ul>
+                <li ng-repeat="task in tasks">
+                    <span>{{task}}</span>
+                    <span>
+                        <button ng-click="editTask($index)">Edit</button>
+                        <button ng-click="deleteTask($index)">Delete</button>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <script>
+            var app = angular.module("todoApp",[]);
+            app.controller("todoCtrl",function($scope){
+                $scope.tasks=["milk","write","walk"];
+                $scope.newTask='';
+                $scope.addTask=function(){
+                    if($scope.newTask.trim()!==" "){
+                        $scope.tasks.push($scope.newTask);
+                        $scope.newTask='';
+                    }
+                };
+
+                $scope.editTask=function(index){
+                    var editedTask=prompt("EditTask:",$scope.tasks[index]);
+                    if(editedTask !==null){
+                        $scope.tasks[index]=editedTask;
+                    }
+                };
+
+                $scope.deleteTask=function(index){
+                    var confirmDelete=confirm("Are you sure you want to delete this task?");
+                    if(confirmDelete){
+                        $scope.tasks.splice(index,1);
+                    }
+                };
+            }); 
+        </script>
+    </body>
+</html>
